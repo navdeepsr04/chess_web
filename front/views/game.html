@@ -1,20 +1,90 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        {{> head}}
-    </head>
-    <body>
+<head>
+    {{> head}}
+    <style>
+        body {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+            background-size: cover;
+        }
 
-        <div id="myBoard" style="width: 700px"></div>
-        <label>Status:</label>
-        <div id="status"></div>
-        <label>PGN:</label>
-        <div id="pgn"></div>
+        /* Semi-transparent white overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 0;
+        }
 
-        <script>
-            let playerColor = '{{color}}';
-            console.log('Playing as ' + playerColor);
-        </script>
-        <script src="/public/js/index.js"></script>
+        #myBoard, .info-panel {
+            position: relative;
+            z-index: 1;
+        }
 
-    </body>
+        #myBoard {
+            width: 700px;
+            margin-right: 40px;
+        }
+
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 300px;
+        }
+
+        .info {
+            background: rgb(214, 214, 214);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #status, #pgn {
+            font-family: monospace;
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            min-height: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="myBoard"></div>
+
+    <div class="info-panel">
+        <div class="info">
+            <label>Status:</label>
+            <div id="status"></div>
+        </div>
+
+        <div class="info">
+            <label>Moves:</label>
+            <div id="pgn"></div>
+        </div>
+    </div>
+
+    <script>
+        let playerColor = '{{color}}';
+        console.log('Playing as ' + playerColor);
+    </script>
+
+    <script src="/public/js/index.js"></script>
+</body>
 </html>
